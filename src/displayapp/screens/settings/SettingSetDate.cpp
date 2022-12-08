@@ -82,8 +82,8 @@ SettingSetDate::SettingSetDate(Pinetime::Applications::DisplayApp* app, Pinetime
   lblSetTime = lv_label_create(btnSetTime, nullptr);
   lv_label_set_text_static(lblSetTime, "Set");
   lv_obj_set_event_cb(btnSetTime, event_handler);
-  lv_btn_set_state(btnSetTime, LV_BTN_STATE_DISABLED);
-  lv_obj_set_state(lblSetTime, LV_STATE_DISABLED);
+  lv_btn_set_state(btnSetTime, LV_STATE_DEFAULT);
+  lv_obj_set_state(lblSetTime, LV_STATE_DEFAULT);
 }
 
 SettingSetDate::~SettingSetDate() {
@@ -105,11 +105,12 @@ void SettingSetDate::HandleButtonPress() {
                              nrf_rtc_counter_get(portNRF_RTC_REG));
   lv_btn_set_state(btnSetTime, LV_BTN_STATE_DISABLED);
   lv_obj_set_state(lblSetTime, LV_STATE_DISABLED);
+  app->StartApp(Apps::SettingSetTime, DisplayApp::FullRefreshDirections::Up);
 }
 
 void SettingSetDate::CheckDay() {
   const int maxDay = MaximumDayOfMonth(monthCounter.GetValue(), yearCounter.GetValue());
   dayCounter.SetMax(maxDay);
-  lv_btn_set_state(btnSetTime, LV_BTN_STATE_RELEASED);
+  //lv_btn_set_state(btnSetTime, LV_BTN_STATE_RELEASED);
   lv_obj_set_state(lblSetTime, LV_STATE_DEFAULT);
 }
