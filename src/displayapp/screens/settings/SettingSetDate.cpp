@@ -106,6 +106,7 @@ void SettingSetDate::HandleButtonPress() {
   lv_btn_set_state(btnSetTime, LV_BTN_STATE_DISABLED);
   lv_obj_set_state(lblSetTime, LV_STATE_DISABLED);
   app->StartApp(Apps::SettingSetTime, DisplayApp::FullRefreshDirections::Up);
+  running = false;
 }
 
 void SettingSetDate::CheckDay() {
