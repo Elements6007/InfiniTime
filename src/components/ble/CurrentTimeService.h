@@ -47,8 +47,8 @@ namespace Pinetime {
       } CtsCurrentTimeData;
 
       typedef struct __attribute__((packed)) {
-        int8_t timezone;
-        int8_t dst;
+        uint8_t timezone;
+        uint8_t dst;
       } CtsLocalTimeData;
 
       DateTime& m_dateTimeController;
