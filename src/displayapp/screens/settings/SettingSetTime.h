@@ -6,6 +6,8 @@
 #include "components/settings/Settings.h"
 #include "displayapp/widgets/Counter.h"
 #include "displayapp/screens/Screen.h"
+#include "displayapp/screens/ScreenList.h"
+#include "displayapp/screens/DotLabel.h"
 
 namespace Pinetime {
   namespace Applications {
@@ -29,6 +31,7 @@ namespace Pinetime {
         lv_obj_t* lblSetTime;
         Widgets::Counter hourCounter = Widgets::Counter(0, 23, jetbrains_mono_42);
         Widgets::Counter minuteCounter = Widgets::Counter(0, 59, jetbrains_mono_42);
+
       };
     }
   }

@@ -6,6 +6,8 @@
 #include "displayapp/screens/Symbols.h"
 #include "components/settings/Settings.h"
 #include "displayapp/InfiniTimeTheme.h"
+#include "displayapp/screens/DotLabel.h"
+
 
 using namespace Pinetime::Applications::Screens;
 
@@ -108,4 +110,5 @@ void SettingSetTime::SetTime() {
                              nrf_rtc_counter_get(portNRF_RTC_REG));
   lv_obj_set_state(btnSetTime, LV_STATE_DISABLED);
   lv_obj_set_state(lblSetTime, LV_STATE_DISABLED);
+  running =  false;
 }
