@@ -3,10 +3,11 @@
 #include <cstdint>
 #include <lvgl/lvgl.h>
 #include "components/datetime/DateTimeController.h"
+#include "displayapp/screens/settings/SettingSetDateTime.h"
 #include "displayapp/screens/Screen.h"
 #include "displayapp/widgets/Counter.h"
 #include "displayapp/screens/ScreenList.h"
-#include "displayapp/screens/DotLabel.h"
+#include "displayapp/widgets/DotIndicator.h"
 
 namespace Pinetime {
   namespace Applications {
@@ -19,11 +20,10 @@ namespace Pinetime {
         void HandleButtonPress();
         void CheckDay();
 
-                uint8_t nScreens = 2;
-
       private:
         Controllers::DateTime& dateTimeController;
 
+        lv_obj_t* title;
         lv_obj_t* btnSetTime;
         lv_obj_t* lblSetTime;
 
@@ -31,9 +31,8 @@ namespace Pinetime {
         Widgets::Counter monthCounter = Widgets::Counter(1, 12, jetbrains_mono_bold_20);
         Widgets::Counter yearCounter = Widgets::Counter(1970, 9999, jetbrains_mono_bold_20);
 
-        ScreenList<2> screens;
-        std::unique_ptr<Screen> CreateScreen1();
-
+        ScreenList<1> screens;
+        std::unique_ptr<Screen> screenSetDate();
 
       };
     }

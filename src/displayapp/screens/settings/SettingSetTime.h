@@ -32,6 +32,9 @@ namespace Pinetime {
         Widgets::Counter hourCounter = Widgets::Counter(0, 23, jetbrains_mono_42);
         Widgets::Counter minuteCounter = Widgets::Counter(0, 59, jetbrains_mono_42);
 
+       ScreenList<1> screens;
+       std::unique_ptr<Screen> screenSetTime();
+
       };
     }
   }

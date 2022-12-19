@@ -44,6 +44,7 @@
 #include "displayapp/screens/settings/SettingDisplay.h"
 #include "displayapp/screens/settings/SettingSteps.h"
 #include "displayapp/screens/settings/SettingSetDate.h"
+#include "displayapp/screens/settings/SettingSetDateTime.h"
 #include "displayapp/screens/settings/SettingSetTime.h"
 #include "displayapp/screens/settings/SettingChimes.h"
 #include "displayapp/screens/settings/SettingShakeThreshold.h"
@@ -407,6 +408,10 @@ void DisplayApp::LoadApp(Apps app, DisplayApp::FullRefreshDirections direction) 
       break;
     case Apps::SettingSteps:
       currentScreen = std::make_unique<Screens::SettingSteps>(this, settingsController);
+      ReturnApp(Apps::Settings, FullRefreshDirections::Down, TouchEvents::SwipeDown);
+      break;
+    case Apps::SettingSetDateTime:
+      currentScreen = std::make_unique<Screens::SettingSetDateTime>(this, dateTimeController, settingsController);
       ReturnApp(Apps::Settings, FullRefreshDirections::Down, TouchEvents::SwipeDown);
       break;
     case Apps::SettingSetDate:

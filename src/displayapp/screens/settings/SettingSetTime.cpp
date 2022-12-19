@@ -20,7 +20,7 @@ namespace {
       screen->SetTime();
     }
   }
-  void ValueChangedHandler(void* userData) {
+  void ValueChangedHandlerTime(void* userData) {
     auto* screen = static_cast<SettingSetTime*>(userData);
     screen->UpdateScreen();
   }
@@ -29,7 +29,14 @@ namespace {
 SettingSetTime::SettingSetTime(Pinetime::Applications::DisplayApp* app,
                                Pinetime::Controllers::DateTime& dateTimeController,
                                Pinetime::Controllers::Settings& settingsController)
-  : Screen(app), dateTimeController {dateTimeController}, settingsController {settingsController} {
+  : Screen(app), dateTimeController {dateTimeController}, settingsController {settingsController}, screens {app,
+             0,
+             {[this]() -> std::unique_ptr<Screen> {
+                return screenSetTime();
+              }},
+             Screens::ScreenListModes::UpDown} {
+             }
+std::unique_ptr<Screen> SettingSetTime::screenSetTime() {
 
   lv_obj_t* title = lv_label_create(lv_scr_act(), nullptr);
   lv_label_set_text_static(title, "Set current time");
@@ -53,12 +60,12 @@ SettingSetTime::SettingSetTime(Pinetime::Applications::DisplayApp* app,
   }
   hourCounter.SetValue(dateTimeController.Hours());
   lv_obj_align(hourCounter.GetObject(), nullptr, LV_ALIGN_CENTER, -75, POS_Y_TEXT);
-  hourCounter.SetValueChangedEventCallback(this, ValueChangedHandler);
+  hourCounter.SetValueChangedEventCallback(this, ValueChangedHandlerTime);
 
   minuteCounter.Create();
   minuteCounter.SetValue(dateTimeController.Minutes());
   lv_obj_align(minuteCounter.GetObject(), nullptr, LV_ALIGN_CENTER, 0, POS_Y_TEXT);
-  minuteCounter.SetValueChangedEventCallback(this, ValueChangedHandler);
+  minuteCounter.SetValueChangedEventCallback(this, ValueChangedHandlerTime);
 
   lblampm = lv_label_create(lv_scr_act(), nullptr);
   lv_obj_set_style_local_text_font(lblampm, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, &jetbrains_mono_bold_20);
@@ -78,6 +85,8 @@ SettingSetTime::SettingSetTime(Pinetime::Applications::DisplayApp* app,
   UpdateScreen();
   lv_obj_set_state(btnSetTime, LV_STATE_DISABLED);
   lv_obj_set_state(lblSetTime, LV_STATE_DISABLED);
+
+  return std::make_unique<Screens::DotLabel>(1, 2, app, title);
 }
 
 SettingSetTime::~SettingSetTime() {
@@ -110,5 +119,4 @@ void SettingSetTime::SetTime() {
                              nrf_rtc_counter_get(portNRF_RTC_REG));
   lv_obj_set_state(btnSetTime, LV_STATE_DISABLED);
   lv_obj_set_state(lblSetTime, LV_STATE_DISABLED);
-  running =  false;
 }

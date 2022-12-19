@@ -34,6 +34,7 @@ namespace Pinetime {
       SettingDisplay,
       SettingWakeUp,
       SettingSteps,
+      SettingSetDateTime,
       SettingSetDate,
       SettingSetTime,
       SettingChimes,

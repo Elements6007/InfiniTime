@@ -4,6 +4,7 @@
 #include <nrf_log.h>
 #include "displayapp/DisplayApp.h"
 #include "displayapp/screens/Symbols.h"
+#include "displayapp/screens/ScreenList.h"
 #include "displayapp/screens/DotLabel.h"
 
 using namespace Pinetime::Applications::Screens;
@@ -46,15 +47,14 @@ namespace {
 }
 
 SettingSetDate::SettingSetDate(Pinetime::Applications::DisplayApp* app, Pinetime::Controllers::DateTime& dateTimeController)
-  : Screen(app), dateTimeController {dateTimeController},     screens {app,
+  : Screen(app), dateTimeController {dateTimeController}, screens {app,
              0,
              {[this]() -> std::unique_ptr<Screen> {
-                return CreateScreen1();
+                return screenSetDate();
               }},
-             Screens::ScreenListModes::UpDown} {
-} 
+             Screens::ScreenListModes::UpDown}{} 
 
-std::unique_ptr<Screen> SettingSetDate::CreateScreen1() {
+std::unique_ptr<Screen> SettingSetDate::screenSetDate() {
 
   lv_obj_t* title = lv_label_create(lv_scr_act(), nullptr);
   lv_label_set_text_static(title, "Set current date");
@@ -94,8 +94,7 @@ std::unique_ptr<Screen> SettingSetDate::CreateScreen1() {
   lv_obj_set_event_cb(btnSetTime, event_handler);
   lv_btn_set_state(btnSetTime, LV_BTN_STATE_DISABLED);
   lv_obj_set_state(lblSetTime, LV_STATE_DISABLED);
-  return std::make_unique<Screens::SettingSetDate>(0, 1, app, title);
-
+  return std::make_unique<Screens::DotLabel>(0, 2, app, title);
 }
 
 SettingSetDate::~SettingSetDate() {
@@ -117,8 +116,6 @@ void SettingSetDate::HandleButtonPress() {
                              nrf_rtc_counter_get(portNRF_RTC_REG));
   lv_btn_set_state(btnSetTime, LV_BTN_STATE_DISABLED);
   lv_obj_set_state(lblSetTime, LV_STATE_DISABLED);
-  app->StartApp(Apps::SettingSetTime, DisplayApp::FullRefreshDirections::Up);
-  running = false;
 }
 
 void SettingSetDate::CheckDay() {
