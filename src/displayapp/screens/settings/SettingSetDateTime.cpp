@@ -1,4 +1,6 @@
 #include "displayapp/screens/settings/SettingSetDateTime.h"
+#include "displayapp/screens/settings/SettingSetDate.h"
+#include "displayapp/screens/settings/SettingSetTime.h"
 #include <lvgl/lvgl.h>
 #include <hal/nrf_rtc.h>
 #include <nrf_log.h>
@@ -35,7 +37,8 @@ SettingSetDateTime::SettingSetDateTime(Pinetime::Applications::DisplayApp* app,
 std::unique_ptr<Screen> SettingSetDateTime::CreateScreen1() {
 
   
-  return std::make_unique<Screens::SettingSetDate>(app, dateTimeController);
+  return std::make_unique<Screens::SettingSetDate>(app, dateTimeController, settingsController);
+Advance();
 }
 
 std::unique_ptr<Screen> SettingSetDateTime::CreateScreen2() {
@@ -45,4 +48,12 @@ std::unique_ptr<Screen> SettingSetDateTime::CreateScreen2() {
 
 SettingSetDateTime::~SettingSetDateTime() {
   lv_obj_clean(lv_scr_act());
+}
+
+void SettingSetDateTime::Advance() {
+  screens.OnTouchEvent(Pinetime::Applications::TouchEvents::SwipeUp);
+}
+
+void SettingSetDateTime::Quit(){
+  
 }

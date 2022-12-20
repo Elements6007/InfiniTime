@@ -1,4 +1,6 @@
 #include "displayapp/screens/settings/SettingSetTime.h"
+#include "displayapp/screens/settings/SettingSetDateTime.h"
+
 #include <lvgl/lvgl.h>
 #include <hal/nrf_rtc.h>
 #include <nrf_log.h>
@@ -119,4 +121,6 @@ void SettingSetTime::SetTime() {
                              nrf_rtc_counter_get(portNRF_RTC_REG));
   lv_obj_set_state(btnSetTime, LV_STATE_DISABLED);
   lv_obj_set_state(lblSetTime, LV_STATE_DISABLED);
+  Pinetime::Applications::Screens::SettingSetDateTime setdatetime(app, dateTimeController, settingsController);
+  setdatetime.Quit();
 }

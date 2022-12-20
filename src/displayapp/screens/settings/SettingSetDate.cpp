@@ -1,3 +1,4 @@
+#include "displayapp/screens/settings/SettingSetDateTime.h"
 #include "displayapp/screens/settings/SettingSetDate.h"
 #include <lvgl/lvgl.h>
 #include <hal/nrf_rtc.h>
@@ -46,13 +47,14 @@ namespace {
   }
 }
 
-SettingSetDate::SettingSetDate(Pinetime::Applications::DisplayApp* app, Pinetime::Controllers::DateTime& dateTimeController)
-  : Screen(app), dateTimeController {dateTimeController}, screens {app,
+SettingSetDate::SettingSetDate(Pinetime::Applications::DisplayApp* app, Pinetime::Controllers::DateTime& dateTimeController, Pinetime::Controllers::Settings& settingsController)
+  : Screen(app), dateTimeController {dateTimeController}, settingsController {settingsController}, screens {app,
              0,
              {[this]() -> std::unique_ptr<Screen> {
                 return screenSetDate();
               }},
-             Screens::ScreenListModes::UpDown}{} 
+             Screens::ScreenListModes::UpDown}{
+                         } 
 
 std::unique_ptr<Screen> SettingSetDate::screenSetDate() {
 
@@ -94,12 +96,14 @@ std::unique_ptr<Screen> SettingSetDate::screenSetDate() {
   lv_obj_set_event_cb(btnSetTime, event_handler);
   lv_btn_set_state(btnSetTime, LV_BTN_STATE_DISABLED);
   lv_obj_set_state(lblSetTime, LV_STATE_DISABLED);
-  return std::make_unique<Screens::DotLabel>(0, 2, app, title);
+  return std::make_unique<Screens::DotLabel>(0, 1, app, title);
 }
 
 SettingSetDate::~SettingSetDate() {
   lv_obj_clean(lv_scr_act());
 }
+
+
 
 void SettingSetDate::HandleButtonPress() {
   const uint16_t yearValue = yearCounter.GetValue();
@@ -116,6 +120,9 @@ void SettingSetDate::HandleButtonPress() {
                              nrf_rtc_counter_get(portNRF_RTC_REG));
   lv_btn_set_state(btnSetTime, LV_BTN_STATE_DISABLED);
   lv_obj_set_state(lblSetTime, LV_STATE_DISABLED);
+  Pinetime::Applications::Screens::SettingSetDateTime setdatetime(app, dateTimeController, settingsController);
+  running = false;
+  setdatetime.Advance();  
 }
 
 void SettingSetDate::CheckDay() {

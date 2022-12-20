@@ -2,13 +2,13 @@
 
 #include <cstdint>
 #include <lvgl/lvgl.h>
-#include "components/datetime/DateTimeController.h"
-#include "displayapp/screens/settings/SettingSetDate.h"
-#include "displayapp/screens/settings/SettingSetTime.h"
+//#include "components/datetime/DateTimeController.h"
+//#include "displayapp/screens/settings/SettingSetDate.h"
+//#include "displayapp/screens/settings/SettingSetTime.h"
 //#include "components/settings/Settings.h"
 #include "displayapp/screens/Screen.h"
-#include "displayapp/widgets/Counter.h"
-#include "displayapp/screens/Label.h"
+//#include "displayapp/widgets/Counter.h"
+//#include "displayapp/screens/Label.h"
 #include "displayapp/screens/ScreenList.h"
 
 namespace Pinetime {
@@ -28,6 +28,8 @@ namespace Pinetime {
         void UpdateDate();
         void UpdateTime();
 */
+      void Advance();
+      void Quit();
 
       private:
         Controllers::DateTime& dateTimeController;
