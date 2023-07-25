@@ -29,7 +29,11 @@
 #include "displayapp/screens/Steps.h"
 #include "displayapp/screens/PassKey.h"
 #include "displayapp/screens/Error.h"
+<<<<<<< Updated upstream
 #include "displayapp/screens/Weather.h"
+=======
+#include "displayapp/screens/joeface.h"
+>>>>>>> Stashed changes
 
 #include "drivers/Cst816s.h"
 #include "drivers/St7789.h"
@@ -547,6 +551,9 @@ void DisplayApp::LoadScreen(Apps app, DisplayApp::FullRefreshDirections directio
     */
     case Apps::Steps:
       currentScreen = std::make_unique<Screens::Steps>(motionController, settingsController);
+      break;
+    case Apps::joeApp:
+      currentScreen = std::make_unique<Screens::joeApp>();
       break;
   }
   currentApp = app;

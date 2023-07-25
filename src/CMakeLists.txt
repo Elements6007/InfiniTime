@@ -393,6 +393,7 @@ list(APPEND SOURCE_FILES
         displayapp/screens/ApplicationList.cpp
         displayapp/screens/Notifications.cpp
         displayapp/screens/Twos.cpp
+        displayapp/screens/joeface.cpp
         displayapp/screens/HeartRate.cpp
         displayapp/screens/Motion.cpp
         displayapp/screens/FlashLight.cpp
@@ -428,6 +429,7 @@ list(APPEND SOURCE_FILES
 
         ## Watch faces
         displayapp/icons/bg_clock.c
+        displayapp/icons/joe.c
         displayapp/screens/WatchFaceAnalog.cpp
         displayapp/screens/WatchFaceDigital.cpp
         displayapp/screens/WatchFaceInfineat.cpp
@@ -618,6 +620,7 @@ set(INCLUDE_FILES
         displayapp/screens/Motion.h
         displayapp/screens/Timer.h
         displayapp/screens/Alarm.h
+        displayapp/screens/joeface.h
         displayapp/Colors.h
         displayapp/widgets/Counter.h
         displayapp/widgets/PageIndicator.h

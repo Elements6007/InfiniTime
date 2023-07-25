@@ -8,7 +8,7 @@
 #include "components/settings/Settings.h"
 #include "displayapp/InfiniTimeTheme.h"
 
-LV_IMG_DECLARE(bg_clock);
+LV_IMG_DECLARE(joe);
 
 using namespace Pinetime::Applications::Screens;
 
@@ -60,9 +60,9 @@ WatchFaceAnalog::WatchFaceAnalog(Controllers::DateTime& dateTimeController,
   sMinute = 99;
   sSecond = 99;
 
-  lv_obj_t* bg_clock_img = lv_img_create(lv_scr_act(), nullptr);
-  lv_img_set_src(bg_clock_img, &bg_clock);
-  lv_obj_align(bg_clock_img, nullptr, LV_ALIGN_CENTER, 0, 0);
+  lv_obj_t* joeface = lv_img_create(lv_scr_act(), nullptr);
+  lv_img_set_src(joeface, &joe);
+  lv_obj_align(joeface, nullptr, LV_ALIGN_CENTER, 0, 0);
 
   batteryIcon.Create(lv_scr_act());
   lv_obj_align(batteryIcon.GetObject(), nullptr, LV_ALIGN_IN_TOP_RIGHT, 0, 0);
